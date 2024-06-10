@@ -9,13 +9,43 @@ async function getData(value) {
 }
 
 
+
+
+navigator.geolocation.getCurrentPosition(homeLocation , failed);
+
+async function homeLocation(location){
+
+
+    const { latitude, longitude } = location.coords;
+    const result = await getData(`${latitude},${longitude}`);
+    await displayResult(result);
+
+
+
+
+}
+
+function failed(){
+    alert("Unable to fetch location, searchh manually")
+}
+
+
+
+
 button.addEventListener('click', async ()=>{
 
     const value = searchBar.value;
     const result = await getData(value);
 
-    console.log(result)
+    // console.log(result)
+    await displayResult(result);
 
+    
+    
+});
+
+
+function displayResult(result){
     const name = document.getElementById('name');
     const time = document.getElementById('time');
     const temp = document.getElementById('temp');
@@ -34,6 +64,5 @@ button.addEventListener('click', async ()=>{
         document.getElementById("image-gif").src = "winter.gif"
 
     }
-    
-});
+}
 
